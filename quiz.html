@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Caminhando com Maria - Quiz</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 480px;
+      width: 100%;
+      padding: 32px 20px;
+      text-align: center;
+    }
+
+    /* Barra de progresso */
+    .progress-wrapper {
+      margin-bottom: 28px;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      color: #777;
+      margin-bottom: 8px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #00a8b5, #1a56db);
+      border-radius: 999px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    /* Cabeçalho da etapa */
+    .step-kicker {
+      color: #00a8b5;
+      font-size: 14px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .step-question {
+      font-size: 22px;
+      font-weight: 900;
+      color: #111;
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .step-sub {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    /* Opções */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      background: #f8fafc;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 18px 20px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #222;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .option:hover {
+      border-color: #00a8b5;
+      background: #f0fdfd;
+      transform: translateY(-1px);
+    }
+
+    .option.selected {
+      border-color: #1a56db;
+      background: #eff4ff;
+      color: #1a56db;
+    }
+
+    .option-icon {
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    /* Campos de texto */
+    .field {
+      width: 100%;
+      padding: 16px 18px;
+      font-size: 16px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .field:focus {
+      border-color: #1a56db;
+    }
+
+    /* Botão */
+    .cta-button {
+      display: block;
+      width: 100%;
+      background: #1a56db;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: background 0.2s ease;
+    }
+
+    .cta-button:hover {
+      background: #1649c0;
+    }
+
+    .cta-button:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      font-size: 14px;
+      color: #777;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+
+    .back-link:hover {
+      color: #1a56db;
+    }
+
+    .step {
+      display: none;
+    }
+
+    .step.active {
+      display: block;
+      animation: fadeIn 0.35s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Etapa final */
+    .final-emoji {
+      font-size: 56px;
+      margin-bottom: 16px;
+    }
+
+    .final-title {
+      color: #00a8b5;
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .final-text {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Barra de progresso -->
+    <div class="progress-wrapper">
+      <div class="progress-label" id="progressLabel">Pergunta 1 de 6</div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- ETAPA 1 -->
+    <section class="step active" data-step="1">
+      <p class="step-kicker">Primeiro passo</p>
+      <h2 class="step-question">Qual é a sua idade?</h2>
+      <p class="step-sub">Isso nos ajuda a preparar um devocional mais próximo da sua realidade.</p>
+
+      <div class="options" data-name="idade">
+        <button type="button" class="option" data-value="18-25"><span class="option-icon">🌱</span> 18 a 25 anos</button>
+        <button type="button" class="option" data-value="26-35"><span class="option-icon">🌼</span> 26 a 35 anos</button>
+        <button type="button" class="option" data-value="36-50"><span class="option-icon">🌿</span> 36 a 50 anos</button>
+        <button type="button" class="option" data-value="51+"><span class="option-icon">🌳</span> 51 anos ou mais</button>
+      </div>
+    </section>
+
+    <!-- ETAPA 2 -->
+    <section class="step" data-step="2">
+      <p class="step-kicker">Conte pra Maria</p>
+      <h2 class="step-question">Como está sua vida de oração hoje?</h2>
+      <p class="step-sub">Não se preocupe em estar "certo" — Ela te recebe do jeito que você está.</p>
+
+      <div class="options" data-name="oracao">
+        <button type="button" class="option" data-value="afastado"><span class="option-icon">🌧️</span> Estou afastado(a) há um tempo</button>
+        <button type="button" class="option" data-value="voltando"><span class="option-icon">🕯️</span> Estou tentando voltar agora</button>
+        <button type="button" class="option" data-value="constante"><span class="option-icon">🙏</span> Rezo todos os dias</button>
+        <button type="button" class="option" data-value="buscando"><span class="option-icon">💫</span> Quero aprender a rezar melhor</button>
+      </div>
+    </section>
+
+    <!-- ETAPA 3 -->
+    <section class="step" data-step="3">
+      <p class="step-kicker">Fale com o coração</p>
+      <h2 class="step-question">O que mais pesa no seu coração hoje?</h2>
+      <p class="step-sub">Maria intercede por tudo — escolha o que mais te toca agora.</p>
+
+      <div class="options" data-name="dor">
+        <button type="button" class="option" data-value="familia"><span class="option-icon">👨‍👩‍👧</span> Minha família</button>
+        <button type="button" class="option" data-value="financas"><span class="option-icon">💰</span> Finanças e trabalho</button>
+        <button type="button" class="option" data-value="saude"><span class="option-icon">🏥</span> Saúde (minha ou de alguém)</button>
+        <button type="button" class="option" data-value="ansiedade"><span class="option-icon">😔</span> Ansiedade e medo do futuro</button>
+        <button type="button" class="option" data-value="fe"><span class="option-icon">✝️</span> Minha fé está enfraquecida</button>
+      </div>
+    </section>
+
+    <!-- ETAPA 4 -->
+    <section class="step" data-step="4">
+      <p class="step-kicker">Sua devoção</p>
+      <h2 class="step-question">Você já reza o Terço?</h2>
+      <p class="step-sub">O Terço é a arma de Maria — e está ao alcance de qualquer pessoa.</p>
+
+      <div class="options" data-name="terco">
+        <button type="button" class="option" data-value="diario"><span class="option-icon">📿</span> Sim, todos os dias</button>
+        <button type="button" class="option" data-value="as-vezes"><span class="option-icon">🌙</span> Às vezes, quando consigo</button>
+        <button type="button" class="option" data-value="quero"><span class="option-icon">🌟</span> Ainda não, mas quero aprender</button>
+        <button type="button" class="option" data-value="nunca"><span class="option-icon">🕊️</span> Nunca rezei, me ensine</button>
+      </div>
+    </section>
+
+    <!-- ETAPA 5 -->
+    <section class="step" data-step="5">
+      <p class="step-kicker">Seu momento com Ela</p>
+      <h2 class="step-question">Qual horário você consegue separar para Maria?</h2>
+      <p class="step-sub">Vamos preparar seu devocional respeitando sua rotina.</p>
+
+      <div class="options" data-name="horario">
+        <button type="button" class="option" data-value="manha"><span class="option-icon">🌅</span> Pela manhã, ao acordar</button>
+        <button type="button" class="option" data-value="almoco"><span class="option-icon">☀️</span> No meio do dia</button>
+        <button type="button" class="option" data-value="noite"><span class="option-icon">🌙</span> À noite, antes de dormir</button>
+        <button type="button" class="option" data-value="varios"><span class="option-icon">⏰</span> Vários momentos durante o dia</button>
+      </div>
+    </section>
+
+    <!-- ETAPA 6 - Captura -->
+    <section class="step" data-step="6">
+      <p class="step-kicker">Último passo 🙏</p>
+      <h2 class="step-question">Para onde devemos enviar seu Devocional?</h2>
+      <p class="step-sub">Seu Devocional personalizado "Caminhando com Maria" está pronto para ser enviado.</p>
+
+      <form id="leadForm" autocomplete="on">
+        <input class="field" type="text" name="nome" id="nome" placeholder="Seu primeiro nome" required />
+        <input class="field" type="email" name="email" id="email" placeholder="Seu melhor e-mail" required />
+        <input class="field" type="tel" name="whatsapp" id="whatsapp" placeholder="WhatsApp com DDD" required />
+        <button type="submit" class="cta-button">RECEBER MEU DEVOCIONAL</button>
+      </form>
+    </section>
+
+    <!-- ETAPA FINAL (obrigado) -->
+    <section class="step" data-step="7">
+      <div class="final-emoji">🙏✨</div>
+      <h2 class="final-title">Parabéns! Sua jornada começou</h2>
+      <p class="final-text">
+        Seu Devocional <strong>"Caminhando com Maria"</strong> foi enviado com muito carinho para o seu e-mail e WhatsApp.
+        <br /><br />
+        Abra, reze e permita que Ela te guie. <br />
+        <em>"Eis aqui a serva do Senhor, faça-se em mim segundo a vossa palavra."</em>
+      </p>
+      <a href="index.html" class="cta-button">VOLTAR AO INÍCIO</a>
+    </section>
+
+    <!-- Voltar -->
+    <button type="button" class="back-link" id="backBtn" style="display:none;">← Voltar</button>
+  </div>
+
+  <script>
+    const steps = document.querySelectorAll('.step');
+    const totalQuestions = 6;
+    const progressFill = document.getElementById('progressFill');
+    const progressLabel = document.getElementById('progressLabel');
+    const backBtn = document.getElementById('backBtn');
+    const answers = {};
+    let current = 1;
+
+    function showStep(n) {
+      steps.forEach(s => s.classList.remove('active'));
+      const el = document.querySelector(`.step[data-step="${n}"]`);
+      if (el) el.classList.add('active');
+
+      // Atualiza barra
+      if (n <= totalQuestions) {
+        const pct = ((n - 1) / totalQuestions) * 100;
+        progressFill.style.width = pct + '%';
+        progressLabel.textContent = `Pergunta ${n} de ${totalQuestions}`;
+        document.querySelector('.progress-wrapper').style.display = 'block';
+      } else {
+        progressFill.style.width = '100%';
+        document.querySelector('.progress-wrapper').style.display = 'none';
+      }
+
+      backBtn.style.display = n > 1 && n <= totalQuestions ? 'inline-block' : 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      current = n;
+    }
+
+    // Handler das opções
+    document.querySelectorAll('.options').forEach(group => {
+      const name = group.dataset.name;
+      group.querySelectorAll('.option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.option').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          answers[name] = btn.dataset.value;
+          // Avança automaticamente
+          setTimeout(() => showStep(current + 1), 280);
+        });
+      });
+    });
+
+    // Voltar
+    backBtn.addEventListener('click', () => {
+      if (current > 1) showStep(current - 1);
+    });
+
+    // Form final
+    document.getElementById('leadForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      answers.nome = formData.get('nome');
+      answers.email = formData.get('email');
+      answers.whatsapp = formData.get('whatsapp');
+
+      // Salva localmente (para integração futura com backend/Webhook)
+      try {
+        localStorage.setItem('caminhandoComMaria_lead', JSON.stringify(answers));
+      } catch (err) {}
+
+      // TODO: enviar para webhook / CRM / Active Campaign etc.
+      // fetch('https://seu-webhook', { method:'POST', body: JSON.stringify(answers) });
+
+      showStep(7);
+    });
+
+    showStep(1);
+  </script>
+</body>
+</html>

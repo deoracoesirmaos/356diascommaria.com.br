@@ -20,7 +20,7 @@ export default {
 
       const client = {
         name: nome || 'Doador',
-        email: email || 'doacao@irmaosdeoracao.com.br',
+        email: email || 'deoracoes@irmaos.com.br',
         phone
       }
       if (cpf) client.document = cpf.replace(/\D/g, '')

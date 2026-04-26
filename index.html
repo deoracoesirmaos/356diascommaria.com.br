@@ -888,9 +888,9 @@
         const data = await resp.json();
 
         if (!resp.ok) {
-          const msg = data.error || data.message || data.mensagem || data.msg
-                    || (data.errors && JSON.stringify(data.errors))
-                    || JSON.stringify(data).substring(0, 300);
+          const details = data.details ? JSON.stringify(data.details) : '';
+          const msg = (data.error || data.message || data.mensagem || data.msg || 'Erro desconhecido')
+                    + (details ? ' | Detalhes: ' + details : '');
           throw new Error(msg);
         }
 

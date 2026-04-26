@@ -655,6 +655,7 @@
         <p style="font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5;">Preencha abaixo para gerar seu QR Code PIX instantaneamente.</p>
         <input class="pix-field" type="text" id="pixNome" placeholder="Seu nome (opcional)" />
         <input class="pix-field" type="tel" id="pixTelefone" placeholder="WhatsApp com DDD (opcional)" />
+        <input class="pix-field" type="text" id="pixCpf" placeholder="CPF (opcional, apenas números)" maxlength="14" />
         <button class="pix-btn-gerar" id="pixGerarBtn">✨ Gerar meu PIX agora</button>
         <p style="font-size: 12px; color: #aaa; text-align: center; margin-top: 10px;">🔒 Doação 100% segura via PIX</p>
       </div>
@@ -878,8 +879,11 @@
 
       const nome     = document.getElementById('pixNome').value.trim()     || 'Doador';
       const telefone = document.getElementById('pixTelefone').value.trim() || '11999999999';
+      const cpf = document.getElementById('pixCpf').value.replace(/\D/g, '');
+
       try {
         const body = { amount: pixAmountSelected, nome, telefone };
+        if (cpf) body.cpf = cpf;
         const resp = await fetch(WORKER_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

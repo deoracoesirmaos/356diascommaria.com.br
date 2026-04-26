@@ -420,19 +420,29 @@
       <button type="button" class="cta-button" id="continuarVideoBtn">Continuar 🙏</button>
     </section>
 
-    <!-- ========== ETAPA 9: Ensinamentos de Jesus ========== -->
+    <!-- ========== ETAPA 9: WhatsApp ========== -->
     <section class="step" data-step="9">
-      <h2 class="step-question">Se você pudesse viver os ensinamentos de Jesus de forma prática no seu dia a dia com a intercessão de Nossa Senhora, isso seria valioso para você?</h2>
-
-      <div class="options" data-name="valioso">
-        <button type="button" class="option" data-value="muito"><span class="option-icon">🙏</span> Sim, seria muito valioso para minha vida!</button>
-        <button type="button" class="option" data-value="util"><span class="option-icon">🙌</span> Sim, acredito que seria útil sim.</button>
-        <button type="button" class="option" data-value="talvez"><span class="option-icon">🤔</span> Talvez... depende de como isso se aplicaria.</button>
-      </div>
-
-      <p style="color: #1a56db; font-weight: 900; font-size: 16px; line-height: 1.5; margin-top: 8px;">
-        Você está prestes a viver uma grande transformação espiritual! 🙏❤️
+      <h2 class="step-question">Quase lá, irmão(a)! 🙏</h2>
+      <p class="step-sub">
+        Deixa seu número do <strong>WhatsApp</strong> para começarmos a te enviar os versículos diários e te manter firme na caminhada com Deus. ❤️
       </p>
+
+      <form id="wppForm" autocomplete="on">
+        <div style="position: relative; margin-bottom: 14px;">
+          <span style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px;">📱</span>
+          <input
+            class="field"
+            type="tel"
+            id="wppInput"
+            name="whatsapp"
+            placeholder="(DDD) 9 0000-0000"
+            required
+            style="padding-left: 46px; margin-bottom: 0;"
+          />
+        </div>
+        <p style="font-size: 13px; color: #888; margin-bottom: 16px;">🔒 Seus dados estão seguros. Não compartilhamos com ninguém.</p>
+        <button type="submit" class="cta-button">QUERO RECEBER OS VERSÍCULOS! 🙏</button>
+      </form>
     </section>
 
     <!-- ========== ETAPA 10: Gerando Devocional ========== -->
@@ -810,6 +820,13 @@
       }
     });
 
+    // Formulário WhatsApp (etapa 9) → avança para etapa 10
+    document.getElementById('wppForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      answers.whatsapp = document.getElementById('wppInput').value.trim();
+      showStep(10);
+    });
+
     // Botão continuar do vídeo (etapa 8) → envia dados ao Formspree
     document.getElementById('continuarVideoBtn').addEventListener('click', () => {
       enviarFormspree({
@@ -818,6 +835,7 @@
         coracao:  answers.coracao    || '',
         travado:  answers.travado    || '',
         valioso:  answers.valioso    || '',
+        whatsapp: answers.whatsapp   || '',
         _subject: 'Novo lead — Caminhando com Maria 🙏'
       });
 

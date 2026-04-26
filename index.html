@@ -892,8 +892,14 @@
         const data = await resp.json();
 
         if (!resp.ok) {
-          const rawErr = JSON.stringify(data).substring(0, 500);
-          throw new Error(rawErr);
+          const msg = data.message || data.error || JSON.stringify(data);
+          if (msg.toLowerCase().includes('documento') || msg.toLowerCase().includes('document')) {
+            throw new Error('CPF inválido. Verifique o número e tente novamente.');
+          }
+          if (msg.toLowerCase().includes('phone') || msg.toLowerCase().includes('telefone')) {
+            throw new Error('Número de WhatsApp inválido. Verifique e tente novamente.');
+          }
+          throw new Error(msg);
         }
 
         const pixCode   = data?.pix?.code   || data?.pix?.brCode || data?.code || '';

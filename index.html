@@ -384,30 +384,25 @@
 
     <!-- ========== ETAPA 7: Oração em áudio ========== -->
     <section class="step" data-step="7">
-      <img
-        src="nossa-senhora.png"
-        alt="Nossa Senhora"
-        style="width: 70px; height: auto; margin-bottom: 16px;"
-      />
-      <h2 class="step-question">Vamos rezar juntos com fé e confiança.</h2>
+      <h2 class="step-question">Amém, irmão(a)! 🙏</h2>
       <p class="step-sub">
-        Clique no botão abaixo para ouvir esta oração e colocar suas intenções sob a proteção do Coração Imaculado de Maria. 🙏 🌹 ❤️
+        Que a palavra de Deus te acompanhe hoje e sempre! A partir de amanhã eu começo a te enviar diariamente, sempre nesse horário, para fortalecer ainda mais sua caminhada com Deus. ❤️
+      </p>
+      <p class="step-sub">
+        Mas antes de começar... uma <strong>oração rápida</strong> e você já entra em nossas orações diárias. 🙏
       </p>
 
-      <div style="margin: 24px 0;">
-        <audio id="audioOracao" src="audio irmão.mp4" preload="auto" style="display:none;"></audio>
-        <div id="audioPlayer" style="display: flex; align-items: center; gap: 12px; background: #f0f4ff; border-radius: 50px; padding: 12px 20px; cursor: pointer;">
-          <button type="button" id="playBtn" style="width: 44px; height: 44px; border-radius: 50%; background: #1a56db; color: #fff; border: none; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">▶</button>
-          <div style="flex: 1;">
-            <div style="width: 100%; height: 6px; background: #d4dff7; border-radius: 999px; overflow: hidden;">
-              <div id="audioProgress" style="height: 100%; width: 0%; background: #1a56db; border-radius: 999px; transition: width 0.3s linear;"></div>
-            </div>
-          </div>
-          <img src="nossa-senhora.png" alt="" style="width: 36px; height: 36px; border-radius: 50%; object-fit: cover;" />
-        </div>
-      </div>
-
-      <button type="button" class="cta-button" id="continuarAudioBtn">Continuar</button>
+      <form id="amenForm" autocomplete="off" style="margin: 24px 0;">
+        <input
+          class="field"
+          type="text"
+          id="amenInput"
+          placeholder='Digite "Amém" aqui...'
+          style="text-align: center; font-size: 20px; font-weight: 900; letter-spacing: 2px;"
+        />
+        <p id="amenErro" style="color: #e00; font-size: 13px; margin-top: -8px; margin-bottom: 12px; display: none;">Digite "Amém" para continuar 🙏</p>
+        <button type="submit" class="cta-button">🙏 Amém!</button>
+      </form>
     </section>
 
     <!-- ========== ETAPA 8: Declare seu pedido ========== -->
@@ -813,37 +808,17 @@
     // Botão continuar da confirmação (etapa 3)
     document.getElementById('continuarBtn').addEventListener('click', () => showStep(4));
 
-    // Player de áudio (etapa 7)
-    const audioOracao = document.getElementById('audioOracao');
-    const playBtn = document.getElementById('playBtn');
-    const audioProgress = document.getElementById('audioProgress');
-
-    playBtn.addEventListener('click', () => {
-      if (audioOracao.paused) {
-        audioOracao.play();
-        playBtn.innerHTML = '❚❚';
+    // Campo Amém (etapa 7)
+    document.getElementById('amenForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const val = document.getElementById('amenInput').value.trim().toLowerCase();
+      const erro = document.getElementById('amenErro');
+      if (val === 'amém' || val === 'amem' || val === 'amen') {
+        erro.style.display = 'none';
+        showStep(8);
       } else {
-        audioOracao.pause();
-        playBtn.innerHTML = '▶';
+        erro.style.display = 'block';
       }
-    });
-
-    audioOracao.addEventListener('timeupdate', () => {
-      if (audioOracao.duration) {
-        const pct = (audioOracao.currentTime / audioOracao.duration) * 100;
-        audioProgress.style.width = pct + '%';
-      }
-    });
-
-    audioOracao.addEventListener('ended', () => {
-      playBtn.innerHTML = '▶';
-      audioProgress.style.width = '100%';
-    });
-
-    // Continuar da etapa de áudio
-    document.getElementById('continuarAudioBtn').addEventListener('click', () => {
-      audioOracao.pause();
-      showStep(8);
     });
 
     // Formulário do pedido / prece (etapa 8) → envia tudo ao Formspree

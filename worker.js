@@ -29,7 +29,7 @@ export default {
         identifier,
         amount: parseFloat(amount),
         client,
-        products: [{ id: 'doacao', name: 'Doacao Irmaos de Oracao', quantity: 1, price: parseFloat(amount) }],
+        products: [{ id: 'doacao', name: 'Versículo Diário Irmãos de Oração', quantity: 1, price: parseFloat(amount) }],
         metadata: { provider: 'Site', type: 'doacao' }
       }
 

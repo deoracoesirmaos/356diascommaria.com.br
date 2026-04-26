@@ -408,26 +408,14 @@
     <!-- ========== ETAPA 8: Declare seu pedido ========== -->
     <section class="step" data-step="8">
       <h2 class="step-question">Deus quer te abençoar hoje! 🙌🙏</h2>
-      <p class="step-sub" style="margin-bottom: 20px;">
-        <span style="color: #1a56db; font-weight: 900;" id="nomePedido">Obaid</span> <span style="color: #1a56db;">se você pudesse ver <u>seu maior desejo realizado</u>, o que pediria?</span>
-      </p>
-      <p class="step-sub" style="margin-bottom: 20px;">
-        Talvez seja <strong>uma cura</strong>, ou a <strong>restauração da sua família</strong>, a <strong>libertação de um vício</strong>, a <strong>prosperidade financeira</strong>, o reencontro com <strong>o amor verdadeiro</strong> ou, simplesmente, a <strong>paz no coração</strong>...
-      </p>
-      <p class="step-sub" style="margin-bottom: 20px; font-weight: 700; color: #222;">
-        Declare com fé seu pedido abaixo. Nossa Senhora, cheia de graça e fonte de bênçãos, levará sua súplica até o coração de Jesus. Ela intercederá poderosamente por você! ❤️ 🌹
-      </p>
-      <p class="step-sub" style="margin-bottom: 24px;">
-        Acredite: nada é impossível para Deus. Com este Devocional, Ele agirá com amor e poder em sua vida. 🙌
-      </p>
+      <video
+        src="videos/Vídeo de Cristo .MOV"
+        controls
+        playsinline
+        style="width: 100%; border-radius: 12px; margin: 20px 0; box-shadow: 0 8px 30px rgba(0,0,0,0.15);"
+      ></video>
 
-      <form id="pedidoForm" autocomplete="off">
-        <div style="position: relative; margin-bottom: 20px;">
-          <span style="position: absolute; left: 16px; top: 18px; font-size: 18px; color: #aaa;">👤</span>
-          <textarea class="field" name="pedido" id="pedidoTexto" placeholder="Digite aqui sua prece..." required rows="3" style="padding-left: 42px; padding-top: 16px; resize: vertical; min-height: 56px; font-family: inherit;"></textarea>
-        </div>
-        <button type="submit" class="cta-button">Continuar</button>
-      </form>
+      <button type="button" class="cta-button" id="continuarVideoBtn">Continuar 🙏</button>
     </section>
 
     <!-- ========== ETAPA 9: Ensinamentos de Jesus ========== -->
@@ -821,20 +809,15 @@
       }
     });
 
-    // Formulário do pedido / prece (etapa 8) → envia tudo ao Formspree
-    document.getElementById('pedidoForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      answers.pedido = document.getElementById('pedidoTexto').value.trim();
-
-      // Envia todos os dados coletados ao Formspree
+    // Botão continuar do vídeo (etapa 8) → envia dados ao Formspree
+    document.getElementById('continuarVideoBtn').addEventListener('click', () => {
       enviarFormspree({
-        nome:       answers.nome_livro  || '',
-        area:       answers.area        || '',
-        coracao:    answers.coracao     || '',
-        travado:    answers.travado     || '',
-        valioso:    answers.valioso     || '',
-        pedido:     answers.pedido      || '',
-        _subject:   'Novo lead — Caminhando com Maria 🙏'
+        nome:     answers.nome_livro || '',
+        area:     answers.area       || '',
+        coracao:  answers.coracao    || '',
+        travado:  answers.travado    || '',
+        valioso:  answers.valioso    || '',
+        _subject: 'Novo lead — Caminhando com Maria 🙏'
       });
 
       try {

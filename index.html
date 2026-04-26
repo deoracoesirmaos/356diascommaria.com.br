@@ -260,6 +260,107 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ===== Modal PIX ===== */
+    .pix-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      justify-content: center;
+      align-items: flex-end;
+      padding: 0;
+    }
+    .pix-overlay.open { display: flex; }
+    .pix-card {
+      background: #fff;
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px 24px 0 0;
+      padding: 28px 24px 40px;
+      animation: slideUp 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to   { transform: translateY(0); }
+    }
+    .pix-close {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 22px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+    .pix-amount-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a8a3a, #25c25a);
+      color: #fff;
+      font-size: 28px;
+      font-weight: 900;
+      border-radius: 12px;
+      padding: 10px 24px;
+      margin: 12px 0 20px;
+    }
+    .pix-field {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 15px;
+      border: 2px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-family: inherit;
+      outline: none;
+    }
+    .pix-field:focus { border-color: #1a8a3a; }
+    .pix-btn-gerar {
+      width: 100%;
+      background: linear-gradient(135deg, #1a8a3a, #25c25a);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 18px;
+      font-size: 17px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .pix-btn-gerar:disabled { opacity: 0.6; cursor: not-allowed; }
+    .pix-qr-section { text-align: center; }
+    .pix-qr-section img { width: 220px; height: 220px; border-radius: 12px; margin: 12px auto; display: block; border: 3px solid #e5e7eb; }
+    .pix-code-box {
+      background: #f8fafc;
+      border: 2px dashed #1a8a3a;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 12px;
+      color: #333;
+      word-break: break-all;
+      text-align: left;
+      margin: 12px 0;
+      max-height: 80px;
+      overflow: hidden;
+    }
+    .pix-copy-btn {
+      width: 100%;
+      background: #1a8a3a;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 900;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: 10px;
+    }
+    .pix-copy-btn.copied { background: #25c25a; }
+    .pix-error { color: #d00; font-size: 14px; margin-top: 10px; }
+
     /* ===== Final ===== */
     .final-emoji {
       font-size: 56px;
@@ -501,20 +602,20 @@
       </div>
 
       <!-- CTA principal -->
-      <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" class="cta-button" style="background: linear-gradient(135deg, #1a8a3a, #25c25a); font-size: 18px; padding: 22px; box-shadow: 0 6px 20px rgba(26,138,58,0.4); margin-bottom: 10px; display: block;">
+      <button type="button" class="cta-button" onclick="document.getElementById('doacaoGrid').scrollIntoView({behavior:'smooth'})" style="background: linear-gradient(135deg, #1a8a3a, #25c25a); font-size: 18px; padding: 22px; box-shadow: 0 6px 20px rgba(26,138,58,0.4); margin-bottom: 10px;">
         ❤️ QUERO CONTRIBUIR COM A MISSÃO!
-      </a>
+      </button>
       <p style="font-size: 17px; font-weight: 900; color: #1a8a3a; margin-bottom: 6px;">🙏 Contribua com o que Deus colocar no seu coração</p>
       <p style="font-size: 14px; color: #555; line-height: 1.6; margin-bottom: 16px;">Não há valor certo ou errado — toda semente plantada com amor é abençoada por Deus. ❤️</p>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px;">
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 10,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 20,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 30,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 40,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 50,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 60,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #1a8a3a; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 80,00</a>
-        <a href="https://pay.kirvano.com/4a50d278-7411-4737-93b3-53dd190dd99e" style="display: block; background: linear-gradient(135deg, #1a8a3a, #25c25a); border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; text-decoration: none; color: #fff; font-weight: 900; font-size: 18px; transition: all 0.2s;">R$ 100,00</a>
+      <div id="doacaoGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px;">
+        <button type="button" onclick="abrirPix(10)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 10,00</button>
+        <button type="button" onclick="abrirPix(20)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 20,00</button>
+        <button type="button" onclick="abrirPix(30)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 30,00</button>
+        <button type="button" onclick="abrirPix(40)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 40,00</button>
+        <button type="button" onclick="abrirPix(50)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 50,00</button>
+        <button type="button" onclick="abrirPix(60)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 60,00</button>
+        <button type="button" onclick="abrirPix(80)" style="background: #f0fff4; border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #1a8a3a; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 80,00</button>
+        <button type="button" onclick="abrirPix(100)" style="background: linear-gradient(135deg, #1a8a3a, #25c25a); border: 2px solid #1a8a3a; border-radius: 12px; padding: 16px 8px; text-align: center; color: #fff; font-weight: 900; font-size: 18px; cursor: pointer; font-family: inherit; transition: all 0.2s;">R$ 100,00</button>
       </div>
 
 
@@ -541,6 +642,45 @@
     <!-- Voltar -->
     <button type="button" class="back-link" id="backBtn" style="display:none;">← Voltar</button>
   </div>
+
+  <!-- ========== MODAL PIX ========== -->
+  <div class="pix-overlay" id="pixOverlay">
+    <div class="pix-card" id="pixCard">
+      <button class="pix-close" id="pixClose">✕</button>
+
+      <!-- Tela 1: Formulário -->
+      <div id="pixFormSection">
+        <p style="font-size: 18px; font-weight: 900; color: #1a8a3a; margin-bottom: 4px;">🙏 Contribuir com</p>
+        <div class="pix-amount-badge" id="pixAmountLabel">R$ 0,00</div>
+        <p style="font-size: 14px; color: #555; margin-bottom: 16px; line-height: 1.5;">Preencha abaixo para gerar seu QR Code PIX instantaneamente.</p>
+        <input class="pix-field" type="text" id="pixNome" placeholder="Seu nome (opcional)" />
+        <input class="pix-field" type="tel" id="pixTelefone" placeholder="WhatsApp com DDD (opcional)" />
+        <button class="pix-btn-gerar" id="pixGerarBtn">✨ Gerar meu PIX agora</button>
+        <p style="font-size: 12px; color: #aaa; text-align: center; margin-top: 10px;">🔒 Doação 100% segura via PIX</p>
+      </div>
+
+      <!-- Tela 2: QR Code -->
+      <div id="pixQrSection" style="display:none;" class="pix-qr-section">
+        <p style="font-size: 18px; font-weight: 900; color: #1a8a3a; margin-bottom: 4px;">✅ PIX gerado!</p>
+        <p style="font-size: 14px; color: #555; margin-bottom: 8px;">Escaneie o QR Code ou copie o código abaixo:</p>
+        <img id="pixQrImg" src="" alt="QR Code PIX" />
+        <div class="pix-code-box" id="pixCodeBox"></div>
+        <button class="pix-copy-btn" id="pixCopyBtn">📋 Copiar código PIX</button>
+        <p style="font-size: 13px; color: #555; line-height: 1.5; margin-top: 4px;">Após o pagamento, Deus vai abençoar cada centavo semeado. ❤️</p>
+        <p style="font-size: 12px; color: #aaa; margin-top: 10px;">🔒 Transação segura · Processado pela Amplo Pay</p>
+      </div>
+
+      <!-- Tela 3: Carregando -->
+      <div id="pixLoadingSection" style="display:none; text-align:center; padding: 40px 0;">
+        <div style="width:48px;height:48px;border:5px solid #e5e7eb;border-top-color:#1a8a3a;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px;"></div>
+        <p style="font-size: 16px; font-weight: 700; color: #333;">Gerando seu PIX...</p>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
 
   <script>
     const steps = document.querySelectorAll('.step');
@@ -698,6 +838,92 @@
 
 
     showStep(1);
+
+    // ===== PIX MODAL =====
+    const WORKER_URL = 'https://restless-morning-382e.deoracoesirmaos.workers.dev';
+    let pixAmountSelected = 0;
+
+    function abrirPix(valor) {
+      pixAmountSelected = valor;
+      document.getElementById('pixAmountLabel').textContent = 'R$ ' + valor.toFixed(2).replace('.', ',');
+      const nomeGuardado = answers.nome_livro || '';
+      const wppGuardado  = answers.whatsapp   || '';
+      document.getElementById('pixNome').value     = nomeGuardado;
+      document.getElementById('pixTelefone').value = wppGuardado;
+      mostrarSecaoPix('form');
+      document.getElementById('pixOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharPix() {
+      document.getElementById('pixOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function mostrarSecaoPix(secao) {
+      document.getElementById('pixFormSection').style.display    = secao === 'form'    ? 'block' : 'none';
+      document.getElementById('pixQrSection').style.display      = secao === 'qr'      ? 'block' : 'none';
+      document.getElementById('pixLoadingSection').style.display = secao === 'loading' ? 'block' : 'none';
+    }
+
+    document.getElementById('pixClose').addEventListener('click', fecharPix);
+    document.getElementById('pixOverlay').addEventListener('click', (e) => {
+      if (e.target === document.getElementById('pixOverlay')) fecharPix();
+    });
+
+    document.getElementById('pixGerarBtn').addEventListener('click', async () => {
+      const btn = document.getElementById('pixGerarBtn');
+      btn.disabled = true;
+      mostrarSecaoPix('loading');
+
+      const nome     = document.getElementById('pixNome').value.trim()     || 'Doador';
+      const telefone = document.getElementById('pixTelefone').value.trim() || '11999999999';
+
+      try {
+        const resp = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: pixAmountSelected, nome, telefone })
+        });
+        const data = await resp.json();
+
+        if (!resp.ok) throw new Error(data.error || 'Erro ao gerar PIX');
+
+        const pixCode   = data?.pix?.code   || data?.pix?.brCode || data?.code || '';
+        const pixBase64 = data?.pix?.base64 || data?.pix?.image  || '';
+
+        if (pixBase64) {
+          const src = pixBase64.startsWith('data:') ? pixBase64 : 'data:image/png;base64,' + pixBase64;
+          document.getElementById('pixQrImg').src = src;
+          document.getElementById('pixQrImg').style.display = 'block';
+        } else {
+          document.getElementById('pixQrImg').style.display = 'none';
+        }
+
+        document.getElementById('pixCodeBox').textContent = pixCode || 'Código indisponível';
+        mostrarSecaoPix('qr');
+
+      } catch (err) {
+        mostrarSecaoPix('form');
+        alert('Erro ao gerar o PIX: ' + err.message + '\n\nTente novamente.');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    document.getElementById('pixCopyBtn').addEventListener('click', () => {
+      const code = document.getElementById('pixCodeBox').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('pixCopyBtn');
+        btn.textContent = '✅ Copiado!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = '📋 Copiar código PIX';
+          btn.classList.remove('copied');
+        }, 3000);
+      });
+    });
+    // ===== FIM PIX MODAL =====
 
     // Carrossel de depoimentos
     const carrossel = document.getElementById('carrossel');

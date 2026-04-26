@@ -847,6 +847,7 @@
 
     function abrirPix(valor) {
       pixAmountSelected = valor;
+      if (typeof fbq !== 'undefined') fbq('track', 'InitiateCheckout', { value: valor, currency: 'BRL' });
       document.getElementById('pixAmountLabel').textContent = 'R$ ' + valor.toFixed(2).replace('.', ',');
       const nomeGuardado = answers.nome_livro || '';
       const wppGuardado  = answers.whatsapp   || '';
@@ -922,6 +923,7 @@
         }
 
         document.getElementById('pixCodeBox').textContent = pixCode || 'Código indisponível';
+        if (typeof fbq !== 'undefined') fbq('track', 'Purchase', { value: pixAmountSelected, currency: 'BRL' });
         mostrarSecaoPix('qr');
 
       } catch (err) {

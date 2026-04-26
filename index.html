@@ -887,7 +887,12 @@
         });
         const data = await resp.json();
 
-        if (!resp.ok) throw new Error(data.error || 'Erro ao gerar PIX');
+        if (!resp.ok) {
+          const msg = data.error || data.message || data.mensagem || data.msg
+                    || (data.errors && JSON.stringify(data.errors))
+                    || JSON.stringify(data).substring(0, 300);
+          throw new Error(msg);
+        }
 
         const pixCode   = data?.pix?.code   || data?.pix?.brCode || data?.code || '';
         const pixBase64 = data?.pix?.base64 || data?.pix?.image  || '';

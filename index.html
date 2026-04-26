@@ -820,11 +820,20 @@
       }
     });
 
-    // Formulário WhatsApp (etapa 9) → avança para etapa 10
+    // Formulário WhatsApp (etapa 9) → vai direto para página de vendas
     document.getElementById('wppForm').addEventListener('submit', (e) => {
       e.preventDefault();
       answers.whatsapp = document.getElementById('wppInput').value.trim();
-      showStep(10);
+      enviarFormspree({
+        nome:     answers.nome_livro || '',
+        area:     answers.area       || '',
+        coracao:  answers.coracao    || '',
+        travado:  answers.travado    || '',
+        whatsapp: answers.whatsapp   || '',
+        _subject: 'Novo lead — Irmãos de Oração 🙏'
+      });
+      try { localStorage.setItem('irmaosOracao_lead', JSON.stringify(answers)); } catch(err) {}
+      showStep(11);
     });
 
     // Botão continuar do vídeo (etapa 8) → envia dados ao Formspree
